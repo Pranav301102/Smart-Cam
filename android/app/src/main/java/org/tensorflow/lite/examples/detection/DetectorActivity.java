@@ -16,6 +16,7 @@
 
 package org.tensorflow.lite.examples.detection;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -27,6 +28,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
+import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
 import android.widget.Toast;
@@ -207,6 +209,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                 result.setLocation(location);
                 mappedRecognitions.add(result);
+                Log.d("Result", "Detection: " + result.getTitle());
+                
+
               }
             }
 
