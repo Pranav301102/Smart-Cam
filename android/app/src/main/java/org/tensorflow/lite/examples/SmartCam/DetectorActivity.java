@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package org.tensorflow.lite.examples.detection;
+package org.tensorflow.lite.examples.SmartCam;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -35,14 +34,14 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.tensorflow.lite.examples.detection.customview.OverlayView;
-import org.tensorflow.lite.examples.detection.customview.OverlayView.DrawCallback;
-import org.tensorflow.lite.examples.detection.env.BorderedText;
-import org.tensorflow.lite.examples.detection.env.ImageUtils;
-import org.tensorflow.lite.examples.detection.env.Logger;
-import org.tensorflow.lite.examples.detection.tflite.Detector;
-import org.tensorflow.lite.examples.detection.tflite.TFLiteObjectDetectionAPIModel;
-import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
+import org.tensorflow.lite.examples.SmartCam.customview.OverlayView;
+import org.tensorflow.lite.examples.SmartCam.customview.OverlayView.DrawCallback;
+import org.tensorflow.lite.examples.SmartCam.env.BorderedText;
+import org.tensorflow.lite.examples.SmartCam.env.ImageUtils;
+import org.tensorflow.lite.examples.SmartCam.env.Logger;
+import org.tensorflow.lite.examples.SmartCam.tflite.Detector;
+import org.tensorflow.lite.examples.SmartCam.tflite.TFLiteObjectDetectionAPIModel;
+import org.tensorflow.lite.examples.SmartCam.tracking.MultiBoxTracker;
 
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track

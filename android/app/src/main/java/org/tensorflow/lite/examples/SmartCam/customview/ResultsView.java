@@ -13,10 +13,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package org.tensorflow.lite.examples.detection.customview;
+package org.tensorflow.lite.examples.SmartCam.customview;
 
 import java.util.List;
-import org.tensorflow.lite.examples.detection.tflite.Detector.Recognition;
+import org.tensorflow.lite.examples.SmartCam.tflite.Detector.Recognition;
 
 public interface ResultsView {
   public void setResults(final List<Recognition> results);

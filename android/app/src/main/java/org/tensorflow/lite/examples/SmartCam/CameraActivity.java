@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.tensorflow.lite.examples.detection;
+package org.tensorflow.lite.examples.SmartCam;
 
 import android.Manifest;
 import android.app.Fragment;
@@ -50,8 +50,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.nio.ByteBuffer;
-import org.tensorflow.lite.examples.detection.env.ImageUtils;
-import org.tensorflow.lite.examples.detection.env.Logger;
+import org.tensorflow.lite.examples.SmartCam.env.ImageUtils;
+import org.tensorflow.lite.examples.SmartCam.env.Logger;
 
 public abstract class CameraActivity extends AppCompatActivity
     implements OnImageAvailableListener,
