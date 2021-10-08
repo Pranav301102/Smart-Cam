@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.Trace;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -41,6 +42,8 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.nio.ByteBuffer;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.tensorflow.lite.examples.SmartCam.env.ImageUtils;
 import org.tensorflow.lite.examples.SmartCam.env.Logger;
@@ -78,6 +81,14 @@ public abstract class CameraActivity extends AppCompatActivity
   private SwitchCompat apiSwitchCompat;
   private TextView threadsTextView;
   private Switch ttsSwitch;
+  private String predictions;
+  private Timer myTimer;
+  private Boolean stopVariable=false;
+  public TextToSpeech textToSpeech;
+
+
+
+
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -160,17 +171,39 @@ public abstract class CameraActivity extends AppCompatActivity
 
     plusImageView.setOnClickListener(this);
     minusImageView.setOnClickListener(this);
+
+    textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+      @Override
+      public void onInit(int i) {
+
+        // if No error is found then only it will run
+        if(i!=TextToSpeech.ERROR){
+          // To Choose language of speech
+          textToSpeech.setLanguage(Locale.US);
+        }
+      }
+    });
     ttsSwitch = findViewById(R.id.ttsSwitch);
     ttsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(isChecked){
-          predeitcionsTextView.setText("working on");
-        }else{
-          predeitcionsTextView.setText("working off");
+
+          myTimer = new Timer();
+          myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+              TimerMethod();
+            }
+
+          }, 0, 2000);
         }
+
+
+
       }
     });
+
 
   }
 
@@ -529,6 +562,32 @@ public abstract class CameraActivity extends AppCompatActivity
     }
   }
 
+  public void showPredictions(String result){
+    predictions = result;
+  }
+  private void TimerMethod()
+  {
+    //This method is called directly by the timer
+    //and runs in the same thread as the timer.
+
+    //We call the method that will work with the UI
+    //through the runOnUiThread method.
+    this.runOnUiThread(Timer_Tick);
+
+
+  }
+
+
+
+
+  private Runnable Timer_Tick = new Runnable() {
+    @Override
+    public void run() {
+
+      predeitcionsTextView.setText(predictions);
+      textToSpeech.speak(predictions,TextToSpeech.QUEUE_FLUSH,null);
+    }
+  };
 
 
   protected void showInference(String inferenceTime) {
