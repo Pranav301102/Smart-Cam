@@ -23,6 +23,9 @@ import android.os.Trace;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 import android.view.View;
@@ -31,11 +34,14 @@ import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.nio.ByteBuffer;
+import java.util.Locale;
+
 import org.tensorflow.lite.examples.SmartCam.env.ImageUtils;
 import org.tensorflow.lite.examples.SmartCam.env.Logger;
 
@@ -71,6 +77,7 @@ public abstract class CameraActivity extends AppCompatActivity
   private ImageView plusImageView, minusImageView;
   private SwitchCompat apiSwitchCompat;
   private TextView threadsTextView;
+  private Switch ttsSwitch;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -153,6 +160,18 @@ public abstract class CameraActivity extends AppCompatActivity
 
     plusImageView.setOnClickListener(this);
     minusImageView.setOnClickListener(this);
+    ttsSwitch = findViewById(R.id.ttsSwitch);
+    ttsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(isChecked){
+          predeitcionsTextView.setText("working on");
+        }else{
+          predeitcionsTextView.setText("working off");
+        }
+      }
+    });
+
   }
 
   protected int[] getRgbBytes() {
@@ -510,9 +529,7 @@ public abstract class CameraActivity extends AppCompatActivity
     }
   }
 
-  protected void showPreditions(String predictions){
-    predeitcionsTextView.setText(predictions);
-  }
+
 
   protected void showInference(String inferenceTime) {
     inferenceTimeTextView.setText(inferenceTime);
