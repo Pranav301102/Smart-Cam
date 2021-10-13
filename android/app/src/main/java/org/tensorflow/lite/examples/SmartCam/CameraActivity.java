@@ -41,6 +41,8 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.nio.ByteBuffer;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.tensorflow.lite.examples.SmartCam.env.ImageUtils;
 import org.tensorflow.lite.examples.SmartCam.env.Logger;
@@ -78,6 +80,9 @@ public abstract class CameraActivity extends AppCompatActivity
   private SwitchCompat apiSwitchCompat;
   private TextView threadsTextView;
   private Switch ttsSwitch;
+  public TextToSpeech textToSpeech;
+  private Timer myTimer;
+  private String result;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -160,15 +165,37 @@ public abstract class CameraActivity extends AppCompatActivity
 
     plusImageView.setOnClickListener(this);
     minusImageView.setOnClickListener(this);
+    // if No error is found then only it will run
+    // To Choose language of speech
+    textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+      @Override
+      public void onInit(int i) {
+
+        // if No error is found then only it will run
+        if (i != TextToSpeech.ERROR) {
+          // To Choose language of speech
+          textToSpeech.setLanguage(Locale.US);
+        }
+      }
+    });
+
     ttsSwitch = findViewById(R.id.ttsSwitch);
     ttsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(isChecked){
-          predeitcionsTextView.setText("working on");
-        }else{
-          predeitcionsTextView.setText("working off");
+          myTimer = new Timer();
+          myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+              TimerMethod();
+            }
+
+          }, 0, 2000);
         }
+
+
+
       }
     });
 
@@ -528,6 +555,30 @@ public abstract class CameraActivity extends AppCompatActivity
       setNumThreads(numThreads);
     }
   }
+  private void TimerMethod()
+  {
+    //This method is called directly by the timer
+    //and runs in the same thread as the timer.
+
+    //We call the method that will work with the UI
+    //through the runOnUiThread method.
+    this.runOnUiThread(Timer_Tick);
+
+
+  }
+  private Runnable Timer_Tick = new Runnable() {
+    @Override
+    public void run() {
+
+      predeitcionsTextView.setText(result);
+      textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null);
+    }
+  };
+
+  void showPrediction(String prediction){
+     result = prediction;
+  }
+
 
 
 

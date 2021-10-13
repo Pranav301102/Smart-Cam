@@ -210,7 +210,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 new Runnable() {
                   @Override
                   public void run() {
-
+                    showPrediction(prediction);
                     showInference(lastProcessingTimeMs + "ms");
                   }
                 });
