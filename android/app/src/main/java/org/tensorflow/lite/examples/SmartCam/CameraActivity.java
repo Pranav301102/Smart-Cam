@@ -81,13 +81,9 @@ public abstract class CameraActivity extends AppCompatActivity
   private SwitchCompat apiSwitchCompat;
   private TextView threadsTextView;
   private Switch ttsSwitch;
-  private String predictions;
-  private Timer myTimer;
-  private Boolean stopVariable=false;
   public TextToSpeech textToSpeech;
-
-
-
+  private Timer myTimer;
+  private String result;
 
 
   @Override
@@ -175,14 +171,14 @@ public abstract class CameraActivity extends AppCompatActivity
     textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
       @Override
       public void onInit(int i) {
+        if (i != TextToSpeech.ERROR) {
 
-        // if No error is found then only it will run
-        if(i!=TextToSpeech.ERROR){
           // To Choose language of speech
           textToSpeech.setLanguage(Locale.US);
         }
       }
     });
+
     ttsSwitch = findViewById(R.id.ttsSwitch);
     ttsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
@@ -561,10 +557,6 @@ public abstract class CameraActivity extends AppCompatActivity
       setNumThreads(numThreads);
     }
   }
-
-  public void showPredictions(String result){
-    predictions = result;
-  }
   private void TimerMethod()
   {
     //This method is called directly by the timer
@@ -577,17 +569,21 @@ public abstract class CameraActivity extends AppCompatActivity
 
   }
 
-
-
-
   private Runnable Timer_Tick = new Runnable() {
     @Override
     public void run() {
 
-      predeitcionsTextView.setText(predictions);
-      textToSpeech.speak(predictions,TextToSpeech.QUEUE_FLUSH,null);
+      predeitcionsTextView.setText(result);
+      textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null);
     }
   };
+
+  void showPrediction(String prediction){
+     result = prediction;
+  }
+
+
+
 
 
   protected void showInference(String inferenceTime) {
