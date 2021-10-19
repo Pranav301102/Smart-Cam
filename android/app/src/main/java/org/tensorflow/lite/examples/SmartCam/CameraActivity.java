@@ -19,7 +19,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Looper;
 import android.os.Trace;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -75,7 +74,7 @@ public abstract class CameraActivity extends AppCompatActivity
   private LinearLayout gestureLayout;
   private BottomSheetBehavior<LinearLayout> sheetBehavior;
 
-  protected TextView predeitcionsTextView, inferenceTimeTextView;
+  protected TextView predictionTextView, inferenceTimeTextView;
   protected ImageView bottomSheetArrowImageView;
   private ImageView plusImageView, minusImageView;
   private SwitchCompat apiSwitchCompat;
@@ -161,7 +160,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
 
     inferenceTimeTextView = findViewById(R.id.inference_info);
-    predeitcionsTextView = findViewById(R.id.Predetcions);
+    predictionTextView = findViewById(R.id.Predetcions);
 
     apiSwitchCompat.setOnCheckedChangeListener(this);
 
@@ -172,7 +171,6 @@ public abstract class CameraActivity extends AppCompatActivity
       @Override
       public void onInit(int i) {
         if (i != TextToSpeech.ERROR) {
-
           // To Choose language of speech
           textToSpeech.setLanguage(Locale.US);
         }
@@ -184,7 +182,7 @@ public abstract class CameraActivity extends AppCompatActivity
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(isChecked){
-
+          //Timer class is used to call a method periodically
           myTimer = new Timer();
           myTimer.schedule(new TimerTask() {
             @Override
@@ -194,12 +192,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
           }, 0, 2000);
         }
-
-
-
       }
     });
-
 
   }
 
@@ -561,19 +555,13 @@ public abstract class CameraActivity extends AppCompatActivity
   {
     //This method is called directly by the timer
     //and runs in the same thread as the timer.
-
-    //We call the method that will work with the UI
-    //through the runOnUiThread method.
-    this.runOnUiThread(Timer_Tick);
-
-
+    this.runOnUiThread(Timer_Speech);
   }
 
-  private Runnable Timer_Tick = new Runnable() {
+  private Runnable Timer_Speech = new Runnable() {
     @Override
     public void run() {
-
-      predeitcionsTextView.setText(result);
+      predictionTextView.setText(result);
       textToSpeech.speak(result,TextToSpeech.QUEUE_FLUSH,null);
     }
   };
