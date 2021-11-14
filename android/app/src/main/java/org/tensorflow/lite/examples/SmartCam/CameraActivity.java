@@ -192,6 +192,9 @@ public abstract class CameraActivity extends AppCompatActivity
 
           }, 0, 2000);
         }
+        else{
+          myTimer.cancel();
+        }
       }
     });
 
