@@ -1,7 +1,7 @@
-org/tensorflow/lite/examples/SmartCam/tflite/BuildConfig.java
- org.tensorflow.lite.examples.SmartCam.tflite.BuildConfig
-org/tensorflow/lite/examples/SmartCam/tflite/Detector.java
- org.tensorflow.lite.examples.SmartCam.tflite.Detector
- org.tensorflow.lite.examples.SmartCam.tflite.Detector$Recognition
-org/tensorflow/lite/examples/SmartCam/tflite/TFLiteObjectDetectionAPIModel.java
- org.tensorflow.lite.examples.SmartCam.tflite.TFLiteObjectDetectionAPIModel
+com/trivedi02/pranav/project/SmartCam/tflite/Detector.java
+ com.trivedi02.pranav.project.SmartCam.tflite.Detector
+ com.trivedi02.pranav.project.SmartCam.tflite.Detector$Recognition
+com/trivedi02/pranav/project/SmartCam/tflite/TFLiteObjectDetectionAPIModel.java
+ com.trivedi02.pranav.project.SmartCam.tflite.TFLiteObjectDetectionAPIModel
+org/tensorflow/lite/project/SmartCam/tflite/BuildConfig.java
+ org.tensorflow.lite.project.SmartCam.tflite.BuildConfig

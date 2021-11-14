@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.tensorflow.lite.examples.SmartCam">
+    package="com.trivedi02.pranav.project.SmartCam">
 
     <uses-sdk />
 
@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme.ObjectDetection">
 
         <activity
-            android:name="org.tensorflow.lite.examples.SmartCam.DetectorActivity"
+            android:name="com.trivedi02.pranav.project.SmartCam.DetectorActivity"
             android:label="@string/tfe_od_app_name"
             android:screenOrientation="portrait">
             <intent-filter>

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "applicationId": "org.tensorflow.lite.examples.SmartCam.tflite",
+  "applicationId": "org.tensorflow.lite.project.SmartCam.tflite",
   "variantType": "LIBRARY",
   "elements": [
     {
@@ -19,7 +19,7 @@
       },
       "path": "../../library_manifest/debug/AndroidManifest.xml",
       "properties": {
-        "packageId": "org.tensorflow.lite.examples.SmartCam.tflite",
+        "packageId": "org.tensorflow.lite.project.SmartCam.tflite",
         "split": ""
       }
     }

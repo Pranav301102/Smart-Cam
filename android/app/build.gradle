@@ -4,7 +4,7 @@ apply plugin: 'de.undercouch.download'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "org.tensorflow.lite.examples.SmartCam"
+        applicationId "com.trivedi02.pranav.project.SmartCam"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
