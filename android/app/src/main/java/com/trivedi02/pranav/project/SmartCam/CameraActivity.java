@@ -23,7 +23,6 @@ import android.os.Trace;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
-
 import android.speech.tts.TextToSpeech;
 import android.util.Size;
 import android.view.Surface;
@@ -52,9 +51,7 @@ public abstract class CameraActivity extends AppCompatActivity
         CompoundButton.OnCheckedChangeListener,
         View.OnClickListener {
   private static final Logger LOGGER = new Logger();
-
   private static final int PERMISSIONS_REQUEST = 1;
-
   private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
   protected int previewWidth = 0;
   protected int previewHeight = 0;
@@ -68,11 +65,9 @@ public abstract class CameraActivity extends AppCompatActivity
   private int yRowStride;
   private Runnable postInferenceCallback;
   private Runnable imageConverter;
-
   private LinearLayout bottomSheetLayout;
   private LinearLayout gestureLayout;
   private BottomSheetBehavior<LinearLayout> sheetBehavior;
-
   protected TextView predictionTextView, inferenceTimeTextView;
   protected ImageView bottomSheetArrowImageView;
   private ImageView plusImageView, minusImageView;
@@ -196,7 +191,6 @@ public abstract class CameraActivity extends AppCompatActivity
         }
       }
     });
-
   }
 
   protected int[] getRgbBytes() {
@@ -571,10 +565,6 @@ public abstract class CameraActivity extends AppCompatActivity
   void showPrediction(String prediction){
      result = prediction;
   }
-
-
-
-
 
   protected void showInference(String inferenceTime) {
     inferenceTimeTextView.setText(inferenceTime);

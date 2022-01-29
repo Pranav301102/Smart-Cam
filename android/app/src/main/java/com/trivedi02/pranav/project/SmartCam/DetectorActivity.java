@@ -16,13 +16,11 @@ import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
 import android.widget.Toast;
-
 import com.trivedi02.pranav.project.SmartCam.customview.OverlayView;
 import com.trivedi02.pranav.project.SmartCam.env.ImageUtils;
 import com.trivedi02.pranav.project.SmartCam.tflite.Detector;
 import com.trivedi02.pranav.project.SmartCam.tflite.TFLiteObjectDetectionAPIModel;
 import com.trivedi02.pranav.project.SmartCam.tracking.MultiBoxTracker;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
