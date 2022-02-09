@@ -44,6 +44,7 @@ import java.util.TimerTask;
 
 import com.trivedi02.pranav.project.SmartCam.env.ImageUtils;
 import com.trivedi02.pranav.project.SmartCam.env.Logger;
+import com.trivedi02.pranav.project.SmartCam.tflite.Detector;
 
 public abstract class CameraActivity extends AppCompatActivity
     implements OnImageAvailableListener,
@@ -77,6 +78,8 @@ public abstract class CameraActivity extends AppCompatActivity
   public TextToSpeech textToSpeech;
   private Timer myTimer;
   private String result;
+  private int numThreads =4;
+
 
 
   @Override
@@ -92,13 +95,15 @@ public abstract class CameraActivity extends AppCompatActivity
 
     if (hasPermission()) {
       setFragment();
+
     } else {
       requestPermission();
     }
 
-    threadsTextView = findViewById(R.id.threads);
-    plusImageView = findViewById(R.id.plus);
-    minusImageView = findViewById(R.id.minus);
+
+    //threadsTextView = findViewById(R.id.threads);
+    //plusImageView = findViewById(R.id.plus);
+    //minusImageView = findViewById(R.id.minus);
     apiSwitchCompat = findViewById(R.id.api_info_switch);
     bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
     gestureLayout = findViewById(R.id.gesture_layout);
@@ -156,10 +161,11 @@ public abstract class CameraActivity extends AppCompatActivity
     inferenceTimeTextView = findViewById(R.id.inference_info);
     predictionTextView = findViewById(R.id.Predetcions);
 
+
     apiSwitchCompat.setOnCheckedChangeListener(this);
 
-    plusImageView.setOnClickListener(this);
-    minusImageView.setOnClickListener(this);
+    //plusImageView.setOnClickListener(this);
+    //minusImageView.setOnClickListener(this);
 
     textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
       @Override
@@ -458,6 +464,7 @@ public abstract class CameraActivity extends AppCompatActivity
   protected void setFragment() {
     String cameraId = chooseCamera();
 
+
     Fragment fragment;
     if (useCamera2API) {
       CameraConnectionFragment camera2Fragment =
@@ -529,7 +536,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
   @Override
   public void onClick(View v) {
-    if (v.getId() == R.id.plus) {
+
+    /*if (v.getId() == R.id.plus) {
       String threads = threadsTextView.getText().toString().trim();
       int numThreads = Integer.parseInt(threads);
       if (numThreads >= 9) return;
@@ -545,7 +553,7 @@ public abstract class CameraActivity extends AppCompatActivity
       numThreads--;
       threadsTextView.setText(String.valueOf(numThreads));
       setNumThreads(numThreads);
-    }
+    }*/
   }
   private void TimerMethod()
   {
