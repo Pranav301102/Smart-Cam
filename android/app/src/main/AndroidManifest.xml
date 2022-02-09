@@ -9,6 +9,7 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
+
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/tfe_od_app_name"
