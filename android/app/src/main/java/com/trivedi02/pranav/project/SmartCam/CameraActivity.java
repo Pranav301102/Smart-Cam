@@ -5,6 +5,7 @@ package com.trivedi02.pranav.project.SmartCam;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
@@ -20,10 +21,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Trace;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+
+import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.util.Size;
 import android.view.Surface;
 import android.view.View;
@@ -38,6 +44,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -54,6 +61,7 @@ public abstract class CameraActivity extends AppCompatActivity
   private static final Logger LOGGER = new Logger();
   private static final int PERMISSIONS_REQUEST = 1;
   private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
+  private static final int VOICE_RECOGNITION_REQUEST_CODE = 69;
   protected int previewWidth = 0;
   protected int previewHeight = 0;
   private boolean debug = false;
@@ -181,6 +189,7 @@ public abstract class CameraActivity extends AppCompatActivity
     ttsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        //isChecked = getIntent().getBooleanExtra("toggleBtn",true);
         if(isChecked){
           //Timer class is used to call a method periodically
           myTimer = new Timer();
@@ -197,6 +206,31 @@ public abstract class CameraActivity extends AppCompatActivity
         }
       }
     });
+    //voiceAssistant();
+  }
+  public void voiceAssistant(){
+    Intent voice = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+    voice.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+    voice.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
+            Locale.getDefault());
+    voice.putExtra(RecognizerIntent.EXTRA_PROMPT,
+            "say turn on assistant....");
+    startActivityForResult(voice , VOICE_RECOGNITION_REQUEST_CODE);
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+      ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+      if(matches.get(0).toString().equals("Turn on Assistant")){
+        Toast.makeText(this, "Voice assitant Working", Toast.LENGTH_LONG).show();
+       //Intent switchOnOF = new Intent(this, CameraActivity.class);
+       //switchOnOF.putExtra("toggleBtn", true);
+       //finish();
+      }
+    }
   }
 
   protected int[] getRgbBytes() {
