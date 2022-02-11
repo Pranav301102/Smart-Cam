@@ -189,7 +189,7 @@ public abstract class CameraActivity extends AppCompatActivity
     ttsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        //isChecked = getIntent().getBooleanExtra("toggleBtn",true);
+
         if(isChecked){
           //Timer class is used to call a method periodically
           myTimer = new Timer();
@@ -206,9 +206,18 @@ public abstract class CameraActivity extends AppCompatActivity
         }
       }
     });
-    //voiceAssistant();
+    Runnable assis = new Runnable() {
+      @Override
+      public void run() {
+        voiceAssistant();
+      }
+    };
+    Handler h = new Handler();
+    h.postDelayed(assis, 4000);
+
   }
   public void voiceAssistant(){
+
     Intent voice = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
     voice.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -224,11 +233,11 @@ public abstract class CameraActivity extends AppCompatActivity
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == VOICE_RECOGNITION_REQUEST_CODE && resultCode == RESULT_OK && data != null){
       ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-      if(matches.get(0).toString().equals("Turn on Assistant")){
+      if(matches.get(0).toString().equals("turn on assistant")){
         Toast.makeText(this, "Voice assitant Working", Toast.LENGTH_LONG).show();
-       //Intent switchOnOF = new Intent(this, CameraActivity.class);
-       //switchOnOF.putExtra("toggleBtn", true);
-       //finish();
+
+       ttsSwitch.setChecked(true);
+
       }
     }
   }
