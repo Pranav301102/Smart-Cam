@@ -198,7 +198,6 @@ public abstract class CameraActivity extends AppCompatActivity
             public void run() {
               TimerMethod();
             }
-
           }, 0, 2000);
         }
         else{
@@ -213,8 +212,7 @@ public abstract class CameraActivity extends AppCompatActivity
       }
     };
     Handler h = new Handler();
-    h.postDelayed(assis, 4000);
-
+    h.postDelayed(assis, 3000);
   }
   public void voiceAssistant(){
 
